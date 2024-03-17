@@ -1,0 +1,23 @@
+{{ block title }}
+    Results
+{{ endblock }}
+
+{{ block content }}
+
+    <p>
+        Congratulations, you made a deal at the price of {{ group.deal_price }}. and {{ player.pay }}
+    </p>
+
+<p>
+    This import tariff will be audited by tax auditor, if you accept the bribe there is a 50% chance for the bribery to be discovered.
+    However, you have the option to bribe the auditor that can reduce your chance of being discovered. Every point allocated will reduce
+    probability of being discovered by 1%.
+</p>
+<p> please input your proposal below</p>
+
+{{ formfields }}
+
+
+{{ endblock }}
+
+

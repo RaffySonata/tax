@@ -1,0 +1,25 @@
+{{ block title }}
+    Investigation
+{{ endblock }}
+
+{{ block content }}
+
+
+{{ if group.chance < 50}}
+
+<p>
+    The investigation result from the tax auditor has found anomaly in the tax report. Because of that Business and
+    Tax Officer will be penalized 100 unit each for this infraction. Your final return is {{player.payment}}
+</p>
+
+{{ endif }}
+{{if group.chance > 49}}
+    <p>
+        Congratulations, you made a deal at the price of {{ group.deal_price }}. and {{ player.pay }}
+    </p>
+{{ endif }}
+
+
+{{ endblock }}
+
+
