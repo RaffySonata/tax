@@ -12,11 +12,11 @@ Pelaporan Pajak
     Untuk impor barang mewah tersebut akan dikenakan pajak impor sebesar 200 unit
 </p>
 <p>
-    Anda diberi kesempatan untuk berkomunikasi dengan petugas pajak dan dapat membayar iuran tidak wajib untuk menjadi bukan barang mewah dimana terdapat biaya 10 unit<br>
+    Anda diberi kesempatan untuk berkomunikasi dengan petugas pajak dan dapat membayar transfer tidak wajib untuk menjadi bukan barang mewah dimana terdapat biaya 10 unit<br>
     <br>
     Terdapat potensi sebesar 50:50 bahwa audit menemukan pelaporan kategori yang salah dimana denda sebesar 300 unit akan dikenakan <br>
     <br>
-    Pemberian kategori barang mewah merupakan wewenang petugas pajak sepenuhnya. Kesepakatan atas besaran iuran tidak menjamin
+    Pemberian kategori barang mewah merupakan wewenang petugas pajak sepenuhnya. Kesepakatan atas besaran transfer tidak menjamin
     kategori barang akan berubah
 </p>
 {{ endif }}
@@ -34,42 +34,42 @@ Pelaporan Pajak
     Anda berhadapan dengan importir barang mewah dengan potensi laba sebesar 400 unit
 </p>
 <p>
-    Anda diberi kesempatan untuk berkomunikasi dengan importir dan mendapatkan iuran tidak wajib untuk merubah kategori
+    Anda diberi kesempatan untuk berkomunikasi dengan importir dan mendapatkan transfer tidak wajib untuk merubah kategori
     menjadi barang non mewah<br>
     <br>
     Terdapat potensi sebesar 50:50 bahwa audit menemukan pelaporan kategori yang salah dimana denda sebesar 300 unit akan dikenakan <br>
     <br>
     Pemberian kategori barang mewah merupakan wewenang petugas pajak sepenuhnya. Anda berhak untuk memutuskan mengganti
-    atau tidak kategori barang setelah menerima iuran.<br>
+    atau tidak kategori barang setelah menerima transfer.<br>
     <br>
     mengubah kategori barang membutuhkan biaya sebesar 10 unit untuk administrasi yang dilakukan
 </p>
 {{ endif }}
 <p>
-    Silakan melakukan negosiasi kepada {{ other_role }} atas besaran iuran tidak wajib.
+    Silakan melakukan negosiasi kepada {{ other_role }} atas besaran transfer tidak wajib.
 
-    Kategori barang impor dan jumlah iuran akan berdasarkan kesepakatan. Jika tidak terjadi kesepakatan maka pajak impor dikenakan secara penuh dan tidak ada iuran
+    Kategori barang impor dan jumlah transfer akan berdasarkan kesepakatan. Jika tidak terjadi kesepakatan maka pajak impor dikenakan secara penuh dan tidak ada iuran
 </p>
 
 <table class="table">
     <tr>
-        <th>Proposal Iuran Anda</th>
+        <th>Proposal Transfer Anda</th>
         <td id="my-proposal">(none)</td>
         <td>
             <input type="number" id="my_offer">
-            <button type="button" onclick="sendOffer()" id="btn-offer">Ajukan Iuran</button>
+            <button type="button" onclick="sendOffer()" id="btn-offer">Ajukan Transfer</button>
         </td>
     </tr>
 
     <tr>
-        <th>Proposal Iuran {{ other_role }}</th>
+        <th>Proposal Transfer {{ other_role }}</th>
         <td id="other-proposal">(none)</td>
 {{ if player.role == "Petugas Pajak" }}
         <td>
-            <button type="button" id="btn-accept" onclick="sendAccept(this)" style="display: none">Terima jumlah iuran</button>
+            <button type="button" id="btn-accept" onclick="sendAccept(this)" style="display: none">Terima jumlah transfer</button>
         </td>
         <td>
-            <button type="button" id="btn-reject" onclick="sendReject(this)" style="display: none">Tolak jumlah iuran</button>
+            <button type="button" id="btn-reject" onclick="sendReject(this)" style="display: none">Tolak jumlah transfer</button>
         </td>
     </tr>
 {{ endif }}
