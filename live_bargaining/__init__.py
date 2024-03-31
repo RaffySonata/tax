@@ -137,11 +137,11 @@ class Results(Page):
         group = player.group
         players = group.get_players()
         if player.bribe == 0:
-            player.chance = random.randint(1,100)
+            player.chance = random.randint(1,400)
         else:
-            if player.bribe > 90:
-                player.bribe = 90
-            rand = random.randint(1,100)
+            if player.bribe > 180:
+                player.bribe = 180
+            rand = random.randint(1,400)
             player.chance = rand + player.bribe
         group.chance = sum([p.chance for p in players])
 
@@ -153,9 +153,12 @@ class Investigation(Page):
     @staticmethod
     def vars_for_template(player: Player):
         group = player.group
-        if group.chance < 50:
-            group.penalty = 100
+        if group.chance < 200:
+            group.penalty = 300
         player.payment = player.pay - group.penalty
+        if player.payment < 0:
+            player.payment = 0
+
 
 
 page_sequence = [Bargain, Results, ResultsWaitPage, Investigation]
