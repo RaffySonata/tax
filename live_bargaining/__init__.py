@@ -19,12 +19,12 @@ class C(BaseConstants):
     PLAYERS_PER_GROUP = 2
     NUM_ROUNDS = 1
     TAX = 200
-    FIX_TAX = 100
+    TAX2 = 10
     PROFIT = 400
-    SALARY = 100
+    SALARY = 200
     OFFICER_COST = 10
-    SELLER_ROLE = 'Business'
-    BUYER_ROLE = 'Tax Officer'
+    SELLER_ROLE = 'Importir'
+    BUYER_ROLE = 'Petugas Pajak'
 
 
 class Subsession(BaseSubsession):
@@ -42,13 +42,15 @@ class Player(BasePlayer):
     amount_accepted = models.IntegerField()
     pay = models.IntegerField(initial=0)
     chance = models.IntegerField(initial=0)
-    bribe = models.IntegerField(initial=0)
-
+    bribe = models.IntegerField(initial=0, label="Iuran kepada auditor")
+    category = models.PositiveIntegerField(choices=[[0, 'Barang Mewah'], [1, 'Barang Non-Mewah']],
+                                            widget=widgets.RadioSelectHorizontal,
+                                           label="katagori barang")
     payment = models.IntegerField(initial=0)
 
 
 class Bargain(Page):
-    timeout_seconds = 360
+    timeout_seconds = 10000
     @staticmethod
     def vars_for_template(player: Player):
         return dict(other_role=player.get_others_in_group()[0].role)
@@ -112,11 +114,11 @@ class Bargain(Page):
             player.amount_proposed = 0
             group.deal_price = 0
         pay = group.deal_price
-        if player.role == "Business":
+        if player.role == "Importir":
             if pay == 0:
-                player.pay = C.PROFIT - C.TAX - C.FIX_TAX
+                player.pay = C.PROFIT - C.TAX
             else:
-                player.pay = C.PROFIT - C.FIX_TAX - pay
+                player.pay = C.PROFIT - C.TAX2 - pay
         else:
             if pay == 0:
                 player.pay = C.SALARY
@@ -127,9 +129,9 @@ class Bargain(Page):
 class Results(Page):
     @staticmethod
     def is_displayed(player):
-        return player.role == "Tax Officer"
+        return player.role == "Petugas Pajak"
     form_model = 'player'
-    form_fields = ['bribe']
+    form_fields = ['bribe','category']
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         group = player.group

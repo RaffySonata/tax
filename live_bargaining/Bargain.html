@@ -1,43 +1,78 @@
 {{ block title }}
-Make a deal
+Pelaporan Pajak
 {{ endblock }}
 {{ block content }}
 
-{{ if player.role == "Business"}}
-<p>test</p>
-{{ endif }}
+{{ if player.role == "Importir" }}
+<h2>Importir</h2>
 <p>
-    This is a 2-player game. A Business and a Tax Officer are negotiating income tax reporting for the Business
+    Anda merupakan importir barang mewah dari luar negeri ke Indonesia dengan potensi keuntungan sebesar 400 unit
 </p>
 <p>
-    You are the {{ player.role }}.
-    Please negotiate with the {{ other_role }} below.
-    You can have the option of offering <b>bribery</b> to have a reduction of tax in the report
+    Untuk impor barang mewah tersebut akan dikenakan bea cukai sebesar 200 unit
+</p>
+<p>
+    Anda diberi kesempatan untuk berkomunikasi dengan petugas pajak dan dapat membayar iuran tidak wajib untuk menjadi bukan barang mewah dimana terdapat biaya 10 unit<br>
+    <br>
+    Terdapat potensi sebesar 50:50 bahwa audit menemukan pelaporan kategori yang salah dimana denda sebesar 300 unit akan dikenakan <br>
+    <br>
+    Pemberian kategori barang mewah merupakan wewenang petugas pajak sepenuhnya. Kesepakatan atas besaran iuran tidak menjamin
+    kategori barang akan berubah
+</p>
+{{ endif }}
+
+{{ if player.role == "Petugas Pajak" }}
+<h2>Petugas Pajak</h2>
+<p>
+    Anda merupakan petugas pajak impor di sebuah bandara dengan gaji 200 unit <br>
+    Tugas Anda adalah untuk memberikan kategori barang dan melakukan tarif cukai sesuai dengan kategori barang sebagai berikut:<br>
+    <br>
+    Bea Cukai barang mewah = 200 unit<br>
+    Bea Cukai barang non-mewah = 10 unit<br>
+</p>
+<p>
+    Anda berhadapan dengan importir barang mewah dengan potensi laba sebesar 400 unit
+</p>
+<p>
+    Anda diberi kesempatan untuk berkomunikasi dengan importir dan mendapatkan iuran tidak wajib untuk merubah kategori
+    menjadi barang non mewah<br>
+    <br>
+    Terdapat potensi sebesar 50:50 bahwa audit menemukan pelaporan kategori yang salah dimana denda sebesar 300 unit akan dikenakan <br>
+    <br>
+    Pemberian kategori barang mewah merupakan wewenang petugas pajak sepenuhnya. Anda berhak untuk memutuskan mengganti
+    atau tidak kategori barang setelah menerima iuran.<br>
+    <br>
+    mengubah kategori barang membutuhkan biaya sebesar 10 unit untuk administrasi yang dilakukan
+</p>
+{{ endif }}
+<p>
+    Silakan melakukan negosiasi kepada {{ other_role }} atas besaran iuran tidak wajib.
+
+    Kategori barang impor dan jumlah iuran akan berdasarkan kesepakatan. Jika tidak terjadi kesepakatan maka bea cukai dikenakan secara penuh dan tidak ada iuran
 </p>
 
 <table class="table">
-    {{ if player.role == "Tax Officer"}}
     <tr>
-        <th>Your current proposal</th>
+        <th>Proposal Iuran Anda</th>
         <td id="my-proposal">(none)</td>
         <td>
             <input type="number" id="my_offer">
-            <button type="button" onclick="sendOffer()" id="btn-offer">Make new offer</button>
+            <button type="button" onclick="sendOffer()" id="btn-offer">Ajukan Iuran</button>
         </td>
     </tr>
-    {{ endif }}
-    {{ if player.role == "Business"}}
+
     <tr>
-        <th>{{ other_role }} proposal</th>
+        <th>Proposal Iuran {{ other_role }}</th>
         <td id="other-proposal">(none)</td>
+{{ if player.role == "Petugas Pajak" }}
         <td>
-            <button type="button" id="btn-accept" onclick="sendAccept(this)" style="display: none">Accept Bribery</button>
+            <button type="button" id="btn-accept" onclick="sendAccept(this)" style="display: none">Terima jumlah iuran</button>
         </td>
         <td>
-            <button type="button" id="btn-reject" onclick="sendReject(this)" style="display: none">Reject Bribery</button>
+            <button type="button" id="btn-reject" onclick="sendReject(this)" style="display: none">Tolak jumlah iuran</button>
         </td>
     </tr>
-    {{ endif }}
+{{ endif }}
 </table>
 
 <h4>Chat</h4>

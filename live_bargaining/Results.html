@@ -1,21 +1,49 @@
 {{ block title }}
-    Results
+    Pengambilan Keputusan
 {{ endblock }}
 
 {{ block content }}
+<p>
+Kategori apa yang akan Anda berikan kepada barang impor tersebut?
+    {{ formfield 'category' }}
+</p>
 
-    <p>
-        Congratulations, you made a deal at the price of {{ group.deal_price }}. and {{ player.pay }}
-    </p>
+    Bea Cukai barang mewah = 200 unit<br>
+    Bea Cukai barang non-mewah = 10 unit<br>
+    Biaya administrasi merubah kategori barang impor = 10 unit<br>
+{{ if group.deal_price == 0 }}
+<p>
+    Anda tidak menerima iuran dari importir
+</p>
+{{ endif }}
+<br>
+<br>
+
+{{ if group.deal_price > 0 }}
+<p>
+    Anda sepakat untuk menerima iuran sebesar {{ group.deal_price }} unit
+</p>
 
 <p>
-    This import tariff will be audited by tax auditor, if you accept the bribe there is a 50% chance for the bribery to be discovered.
-    However, you have the option to bribe the auditor that can reduce your chance of being discovered. Every point allocated will reduce
-    probability of being discovered by 1%.
+    Kegiatan ini memiliki kemungkinan untuk di audit sebesar 50:50 <br>
+    Jika Anda di audit maka ada kemungkinan ditemukan anomali sebesar 50:50<br>
+    Ketika ditemukan anomali maka dikenakan penalti sebesar 200 poin atau sebanyak-banyaknya 100%
+    dari pendapatan masing-masing importir dan petugas pajak<br>
+    <br>
+    Anda berkesempatan untuk memberikan iuran tidak wajib kepada petugas auditor<br>
+    setiap poin iuran akan menurunkan kemungkinan ditemukan anomali pada hasil audit<br>
+    Silakan masukkan jumlah iuran yang akan anda berikan ke petugas audit
 </p>
-<p> please input your proposal below</p>
 
-{{ formfields }}
+{{ formfield 'bribe' }}
+{{ endif }}
+
+
+
+
+
+
+
 
 
 {{ endblock }}
