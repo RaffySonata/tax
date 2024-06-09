@@ -42,7 +42,7 @@ class Player(BasePlayer):
     amount_accepted = models.IntegerField()
     pay = models.IntegerField(initial=0)
     chance = models.IntegerField(initial=0)
-    bribe = models.IntegerField(initial=0, label="Iuran kepada auditor")
+    bribe = models.IntegerField(blank=True, label="Iuran kepada auditor")
     category = models.PositiveIntegerField(choices=[[0, 'Barang Mewah'], [1, 'Barang Non-Mewah']],
                                             widget=widgets.RadioSelectHorizontal,
                                            label="katagori barang")
@@ -136,6 +136,9 @@ class Results(Page):
     def before_next_page(player: Player, timeout_happened):
         group = player.group
         players = group.get_players()
+        bribe = player.field_maybe_none('bribe')
+        if bribe == None:
+            player.bribe = 0
         if player.bribe == 0:
             player.chance = random.randint(1,400)
         else:
