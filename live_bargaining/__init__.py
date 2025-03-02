@@ -50,7 +50,7 @@ class Player(BasePlayer):
 
 
 class Bargain(Page):
-    timeout_seconds = 10000
+    timeout_seconds = 100
     @staticmethod
     def vars_for_template(player: Player):
         return dict(other_role=player.get_others_in_group()[0].role)
