@@ -3,8 +3,8 @@ from os import environ
 SESSION_CONFIGS = [
     dict(
          name='tax',
-         app_sequence=['live_bargaining'],
-         num_demo_participants=2,
+         app_sequence=['live_bargaining_compound'],
+         num_demo_participants=4,
      ),
 ]
 
@@ -30,7 +30,7 @@ USE_POINTS = True
 
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable
-ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
+ADMIN_PASSWORD = 'admin'
 
 DEMO_PAGE_INTRO_HTML = """ """
 
