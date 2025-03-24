@@ -2,10 +2,65 @@ from os import environ
 
 SESSION_CONFIGS = [
     dict(
-         name='tax',
-         app_sequence=['live_bargaining'],
-         num_demo_participants=2,
+         name='compound_kecil',
+         app_sequence=['compound_kecil'],
+         num_demo_participants=40,
      ),
+    dict(
+        name='compound_sedang',
+        app_sequence=['compound_sedang'],
+        num_demo_participants=40,
+    ),
+    dict(
+        name='compound_besar',
+        app_sequence=['compound_besar'],
+        num_demo_participants=40,
+    ),
+dict(
+         name='compound_kecil_random',
+         app_sequence=['compound_kecil_random'],
+         num_demo_participants=40,
+     ),
+    dict(
+        name='compound_sedang_random',
+        app_sequence=['compound_sedang_random'],
+        num_demo_participants=40,
+    ),
+    dict(
+        name='compound_besar_random',
+        app_sequence=['compound_besar_random'],
+        num_demo_participants=40,
+    ),
+    dict(
+        name='val_kecil',
+        app_sequence=['val_kecil'],
+        num_demo_participants=40,
+    ),
+    dict(
+        name='val_sedang',
+        app_sequence=['val_sedang'],
+        num_demo_participants=40,
+    ),
+    dict(
+        name='val_besar',
+        app_sequence=['val_besar'],
+        num_demo_participants=40,
+    ),
+    dict(
+        name='val_kecil_random',
+        app_sequence=['val_kecil_random'],
+        num_demo_participants=40,
+    ),
+    dict(
+        name='val_sedang_random',
+        app_sequence=['val_sedang_random'],
+        num_demo_participants=40,
+    ),
+    dict(
+        name='val_besar_random',
+        app_sequence=['val_besar_random'],
+        num_demo_participants=40,
+    ),
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
@@ -30,7 +85,7 @@ USE_POINTS = True
 
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable
-ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
+ADMIN_PASSWORD = 'admin'
 
 DEMO_PAGE_INTRO_HTML = """ """
 

@@ -1,0 +1,40 @@
+{{ block title }}
+    Pengambilan Keputusan
+{{ endblock }}
+
+{{ block content }}
+<p>
+Kategori apa yang akan Anda berikan kepada barang impor tersebut?
+    {{ formfield 'category' }}
+</p>
+
+Nilai Barang = {{ player.goods_value }} <br>
+Tarif barang mewah = (jumlah barang * nilai barang * 20%) = {{ player.mewah_tariff }}<br>
+Tarif barang non-mewah = (jumlah barang * nilai barang * 15%) = {{ player.biasa_tariff }}<br>
+
+{{ if group.deal_price == 0 }}
+<p>
+    Tidak ada negosiasi, sehingga Anda tidak menerima iuran dari importir.
+</p>
+{{ next_button }}
+{{ endif }}
+<br><br>
+
+{{ if group.deal_price > 0 }}
+<p>
+    Anda menyepakati untuk menerima iuran sebesar {{ group.deal_price }} unit.
+</p>
+<p>
+    Kegiatan ini memiliki kemungkinan audit 50:50. Jika audit menemukan anomali,
+    penalti sebesar {{ group.penalty }} poin akan dikenakan pada pendapatan importir dan petugas pajak.
+</p>
+<p>
+    Anda juga berkesempatan memberikan iuran (bribe) kepada auditor untuk mengurangi risiko audit.
+</p>
+{{ formfield 'bribe' }}
+{{ next_button }}
+{{ endif }}
+
+<hr>
+
+{{ endblock }}
