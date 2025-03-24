@@ -16,9 +16,9 @@ and is less resource-intensive since it all takes place in 1 page.
 
 
 class C(BaseConstants):
-    NAME_IN_URL = 'live_bargaining_compound'
+    NAME_IN_URL = 'val_besar'
     PLAYERS_PER_GROUP = 2
-    NUM_ROUNDS = 5
+    NUM_ROUNDS = 20
 
     # Keep the roles, profits, salary, officer cost
     SALARY = 500
@@ -28,8 +28,8 @@ class C(BaseConstants):
 
     # Parameters for quantity and product price
     FIXED_PRICE = 20
-    MEAN_QUANTITY = 80
-    SD_QUANTITY = 16
+    MEAN_QUANTITY = 200
+    SD_QUANTITY = 40
 
     # Specific tariff (ST) for Mewah vs. Biasa
     ST_MEWAH = 3
@@ -86,9 +86,9 @@ class Bargain(Page):
         player.goods_value = group.quantity * C.FIXED_PRICE
 
         # Compound tariff for Mewah
-        player.mewah_tariff = (group.quantity * C.ST_MEWAH) + (group.quantity * C.FIXED_PRICE * 0.10)
+        player.mewah_tariff = (group.quantity * C.FIXED_PRICE * 0.20)
         # Compound tariff for Biasa
-        player.biasa_tariff = (group.quantity * C.ST_BIASA) + (group.quantity * C.FIXED_PRICE * 0.05)
+        player.biasa_tariff = (group.quantity * C.FIXED_PRICE * 0.15)
 
         return dict(
             other_role=player.get_others_in_group()[0].role,
