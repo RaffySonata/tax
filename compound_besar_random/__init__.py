@@ -16,9 +16,9 @@ and is less resource-intensive since it all takes place in 1 page.
 
 
 class C(BaseConstants):
-    NAME_IN_URL = 'live_bargaining_compound'
+    NAME_IN_URL = 'compound_besar_random'
     PLAYERS_PER_GROUP = 2
-    NUM_ROUNDS = 5
+    NUM_ROUNDS = 20
 
     # Keep the roles, profits, salary, officer cost
     SALARY = 500
@@ -28,8 +28,8 @@ class C(BaseConstants):
 
     # Parameters for quantity and product price
     FIXED_PRICE = 20
-    MEAN_QUANTITY = 80
-    SD_QUANTITY = 16
+    MEAN_QUANTITY = 200
+    SD_QUANTITY = 40
 
     # Specific tariff (ST) for Mewah vs. Biasa
     ST_MEWAH = 3
