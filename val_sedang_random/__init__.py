@@ -16,7 +16,7 @@ and is less resource-intensive since it all takes place in 1 page.
 
 
 class C(BaseConstants):
-    NAME_IN_URL = 'val_sedang'
+    NAME_IN_URL = 'val_sedang_random'
     PLAYERS_PER_GROUP = 2
     NUM_ROUNDS = 20
 
@@ -38,7 +38,8 @@ class C(BaseConstants):
 
 
 class Subsession(BaseSubsession):
-    pass
+    def creating_session(subsession):
+        subsession.group_randomly()
 
 
 class Group(BaseGroup):

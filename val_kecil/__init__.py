@@ -38,8 +38,7 @@ class C(BaseConstants):
 
 
 class Subsession(BaseSubsession):
-    def creating_session(subsession):
-        subsession.group_randomly()
+    pass
 
 
 class Group(BaseGroup):

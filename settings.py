@@ -46,6 +46,21 @@ dict(
         app_sequence=['val_besar'],
         num_demo_participants=40,
     ),
+    dict(
+        name='val_kecil_random',
+        app_sequence=['val_kecil_random'],
+        num_demo_participants=40,
+    ),
+    dict(
+        name='val_sedang_random',
+        app_sequence=['val_sedang_random'],
+        num_demo_participants=40,
+    ),
+    dict(
+        name='val_besar_random',
+        app_sequence=['val_besar_random'],
+        num_demo_participants=40,
+    ),
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
