@@ -1,5 +1,6 @@
 from otree.api import *
 import random
+import math
 
 doc = """
 For oTree beginners, it would be simpler to implement this as a discrete-time game 
@@ -15,16 +16,25 @@ and is less resource-intensive since it all takes place in 1 page.
 
 
 class C(BaseConstants):
-    NAME_IN_URL = 'live_bargaining'
+    NAME_IN_URL = 'val_kecil'
     PLAYERS_PER_GROUP = 2
-    NUM_ROUNDS = 1
-    TAX = 200
-    TAX2 = 10
-    PROFIT = 400
-    SALARY = 200
+    NUM_ROUNDS = 20
+
+    # Keep the roles, profits, salary, officer cost
+    SALARY = 500
     OFFICER_COST = 10
     SELLER_ROLE = 'Importir'
     BUYER_ROLE = 'Petugas Pajak'
+
+    # Parameters for quantity and product price
+    FIXED_PRICE = 20
+    MEAN_QUANTITY = 32
+    SD_QUANTITY = 6.4
+
+    # Specific tariff (ST) for Mewah vs. Biasa
+    ST_MEWAH = 3
+    ST_BIASA = 2
+
 
 
 class Subsession(BaseSubsession):
@@ -35,25 +45,56 @@ class Group(BaseGroup):
     deal_price = models.IntegerField()
     is_finished = models.BooleanField(initial=False)
     chance = models.IntegerField(initial=0)
-    penalty = models.IntegerField(initial=0)
+    penalty = models.FloatField(initial=0)
+    # New field to store the random quantity (so it remains consistent if page is refreshed)
+    quantity = models.IntegerField(initial=0)
+
 
 class Player(BasePlayer):
     amount_proposed = models.IntegerField()
     amount_accepted = models.IntegerField()
-    pay = models.IntegerField(initial=0)
+    mewah_tariff = models.FloatField()
+    biasa_tariff = models.FloatField()
+    goods_value = models.IntegerField()
+    pay = models.FloatField(initial=0)
+    tariff = models.FloatField(initial=0)
     chance = models.IntegerField(initial=0)
     bribe = models.IntegerField(blank=True, label="Iuran kepada auditor")
-    category = models.PositiveIntegerField(choices=[[0, 'Barang Mewah'], [1, 'Barang Non-Mewah']],
-                                            widget=widgets.RadioSelectHorizontal,
-                                           label="katagori barang")
-    payment = models.IntegerField(initial=0)
+    category = models.PositiveIntegerField(
+        choices=[[0, 'Barang Mewah'], [1, 'Barang Non-Mewah']],
+        widget=widgets.RadioSelectHorizontal,
+        label="katagori barang"
+    )
+    payment = models.FloatField(initial=0)
 
 
 class Bargain(Page):
-    timeout_seconds = 100
+    timeout_seconds = 10000
+
     @staticmethod
     def vars_for_template(player: Player):
-        return dict(other_role=player.get_others_in_group()[0].role)
+        """Randomize quantity (once) and show possible tariffs for Barang Mewah & Biasa."""
+        group = player.group
+
+        # Randomize quantity only once per group (if not yet set).
+        if group.quantity == 0:
+            q = max(1, int(random.gauss(C.MEAN_QUANTITY, C.SD_QUANTITY)))
+            group.quantity = q
+
+        # Compute possible tariffs for demonstration (e.g. to show on the template).
+        player.goods_value = group.quantity * C.FIXED_PRICE
+
+        # Compound tariff for Mewah
+        player.mewah_tariff = (group.quantity * C.FIXED_PRICE * 0.20)
+        # Compound tariff for Biasa
+        player.biasa_tariff = (group.quantity * C.FIXED_PRICE * 0.15)
+
+        return dict(
+            other_role=player.get_others_in_group()[0].role,
+            quantity=group.quantity,
+            mewah_tariff=int(player.mewah_tariff),
+            biasa_tariff=int(player.biasa_tariff),
+        )
 
     @staticmethod
     def js_vars(player: Player):
@@ -61,7 +102,6 @@ class Bargain(Page):
 
     @staticmethod
     def live_method(player: Player, data):
-
         group = player.group
         [other] = player.get_others_in_group()
 
@@ -108,43 +148,58 @@ class Bargain(Page):
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
+        """Use the new tariff scheme to compute player's payoff."""
         group = player.group
         if timeout_happened:
             player.amount_accepted = 0
             player.amount_proposed = 0
             group.deal_price = 0
-        pay = group.deal_price
-        if player.role == "Importir":
-            if pay == 0:
-                player.pay = C.PROFIT - C.TAX
+
+        # Compute tariff based on whether a 'deal_price' (bribe) was reached.
+        # If deal_price == 0 => treat as Barang Mewah
+        # If deal_price > 0 => treat as Barang Biasa
+        goods_value = group.quantity * C.FIXED_PRICE
+
+
+        if group.deal_price == 0:
+            # Barang Mewah
+            player.tariff = player.mewah_tariff
+            if player.role == "Importir":
+                player.pay = goods_value - player.tariff
             else:
-                player.pay = C.PROFIT - C.TAX2 - pay
-        else:
-            if pay == 0:
                 player.pay = C.SALARY
+        else:
+            # Barang Biasa
+            player.tariff = player.biasa_tariff
+            if player.role == "Importir":
+                # Importer pays the bribe plus the tariff
+                player.pay = goods_value - player.tariff - group.deal_price
             else:
-                player.pay = C.SALARY + pay - C.OFFICER_COST
+                # Officer receives the bribe, minus cost
+                player.pay = C.SALARY + group.deal_price
 
 
 class Results(Page):
     @staticmethod
     def is_displayed(player):
         return player.role == "Petugas Pajak"
+
     form_model = 'player'
-    form_fields = ['bribe','category']
+    form_fields = ['bribe', 'category']
+
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         group = player.group
         players = group.get_players()
         bribe = player.field_maybe_none('bribe')
-        if bribe == None:
+        if bribe is None:
             player.bribe = 0
         if player.bribe == 0:
-            player.chance = random.randint(1,400)
+            player.chance = random.randint(1, 400)
         else:
             if player.bribe > 180:
                 player.bribe = 180
-            rand = random.randint(1,400)
+            rand = random.randint(1, 400)
             player.chance = rand + player.bribe
         group.chance = sum([p.chance for p in players])
 
@@ -152,16 +207,18 @@ class Results(Page):
 class ResultsWaitPage(WaitPage):
     pass
 
+
 class Investigation(Page):
     @staticmethod
     def vars_for_template(player: Player):
         group = player.group
         if group.chance < 200:
-            group.penalty = 300
+            group.penalty = 1.5 * player.tariff
         player.payment = player.pay - group.penalty
         if player.payment < 0:
             player.payment = 0
 
+class MyWaitPage(WaitPage):
+    wait_for_all_groups = True
 
-
-page_sequence = [Bargain, Results, ResultsWaitPage, Investigation]
+page_sequence = [Bargain, Results, ResultsWaitPage, Investigation, MyWaitPage]
