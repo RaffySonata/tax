@@ -221,4 +221,7 @@ class Investigation(Page):
 class MyWaitPage(WaitPage):
     wait_for_all_groups = True
 
-page_sequence = [Bargain, Results, ResultsWaitPage, Investigation, MyWaitPage]
+class Instructions(Page):
+    pass
+
+page_sequence = [Instructions, Bargain, Results, ResultsWaitPage, Investigation, MyWaitPage]

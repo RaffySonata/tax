@@ -48,7 +48,7 @@ class Group(BaseGroup):
     chance = models.IntegerField(initial=0)
     penalty = models.FloatField(initial=0)
     # New field to store the random quantity (so it remains consistent if page is refreshed)
-    quantity = models.IntegerField(initial=0)
+    quantity = models.FloatField(initial=0)
 
 
 class Player(BasePlayer):
@@ -222,4 +222,7 @@ class Investigation(Page):
 class MyWaitPage(WaitPage):
     wait_for_all_groups = True
 
-page_sequence = [Bargain, Results, ResultsWaitPage, Investigation, MyWaitPage]
+class Instructions(Page):
+    pass
+
+page_sequence = [Instructions, Bargain, Results, ResultsWaitPage, Investigation, MyWaitPage]
