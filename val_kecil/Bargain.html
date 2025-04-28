@@ -46,21 +46,21 @@ Pelaporan Pajak
     <p>
         Anda merupakan importir barang mewah yang berpotensi meraih keuntungan
         Saat ini, Anda mengimpor <strong>{{ quantity }}</strong> unit (nilai barang
-        = jumlah barang × harga 20/unit). Nilai barang Anda adalah <strong>{{ player.goods_value }}</strong>.
+        = jumlah barang × harga 20 poin). Nilai barang Anda adalah <strong>{{ player.goods_value }}</strong> poin.
     </p>
     <p>
         Apabila barang dikategorikan sebagai <em>Barang Mewah</em>, tarif dihitung sebagai:
         <br>
         (jumlah barang * harga barang * 20%).
         <br>
-        Tarif mewah saat ini adalah <strong>{{ mewah_tariff }}</strong>.
+        Tarif mewah saat ini adalah <strong>{{ mewah_tariff }}</strong> poin.
     </p>
     <p>
-        Anda dapat bernegosiasi dengan petugas pajak untuk mengubah kategori menjadi <em>Barang Non-Mewah</em>:
+        Anda dapat bernegosiasi dengan petugas pajak untuk mengubah kategori menjadi <em>Barang Biasa</em>:
         <br>
         (jumlah barang * harga barang * 15%)
         <br>
-        Tarif non-mewah saat ini adalah <strong>{{ biasa_tariff }}</strong>.
+        Tarif barang biasa saat ini adalah <strong>{{ biasa_tariff }}</strong> poin.
         Namun, kesepakatan tidak menjamin kategori akan diubah karena keputusan akhir ada di petugas pajak.
     </p>
     <p>
@@ -73,23 +73,23 @@ Pelaporan Pajak
 <div class="section-box">
     <h2>Petugas Pajak</h2>
     <p>
-        Anda merupakan petugas pajak impor di sebuah bandara dengan gaji <strong>500 unit</strong>.
-        Anda menentukan kategori barang (Mewah/Non-Mewah) dan menghitung tarif berikut:
+        Anda merupakan petugas pajak impor di sebuah bandara dengan gaji <strong>500 poin</strong>.
+        Anda menentukan kategori barang (Mewah/Barang Biasa) dan menghitung tarif berikut:
     </p>
     <ul>
         <li><em>Barang Mewah</em>: (jumlah barang × 3) + (jumlah barang * harga barang * 10%).</li>
-        <li><em>Barang Non-Mewah</em>: (jumlah barang × 2) + (jumlah barang * harga barang * 5%)</li>
+        <li><em>Barang Biasa</em>: (jumlah barang × 2) + (jumlah barang * harga barang * 5%).</li>
     </ul>
     <p>
         Saat ini, jumlah barang diimpor adalah <strong>{{ quantity }}</strong> unit,
-        Nilai barang adalah <strong>{{ player.goods_value }}</strong>.
-        sehingga tarif mewah = <strong>{{ mewah_tariff }}</strong>
-        dan tarif non-mewah = <strong>{{ biasa_tariff }}</strong>.
-        Biaya administrasi untuk perubahan kategori adalah 10 unit.
+        Nilai barang adalah <strong>{{ player.goods_value }}</strong> poin,
+        sehingga tarif mewah = <strong>{{ mewah_tariff }}</strong> poin
+        dan tarif barang biasa = <strong>{{ biasa_tariff }}</strong> poin.
+        Biaya administrasi untuk perubahan kategori adalah 10 poin.
     </p>
     <p>
         Importir memiliki potensi keuntungan dan dapat menawarkan transfer (iuran)
-        agar barang dikategorikan sebagai Non-Mewah. Namun, keputusan akhir ada di tangan Anda.
+        agar barang dikategorikan sebagai Barang Biasa. Namun, keputusan akhir ada di tangan Anda.
         Jika audit (50:50) menemukan ketidaksesuaian, denda 1.5x nilai tariff akan dikenakan.
     </p>
 </div>
@@ -128,7 +128,7 @@ Pelaporan Pajak
 {{ chat nickname=player.role }}
 
 <div class="debug-section">
-    <strong>Penalti Saat Ini (group.penalty):</strong> {{ group.penalty }}
+    <strong>Penalti Saat Ini (group.penalty):</strong> {{ group.penalty }} poin
 </div>
 
 <!-- No changes to JavaScript below -->
@@ -161,7 +161,7 @@ Pelaporan Pajak
     }
 
     function cu(amount) {
-        return `${amount} points`;
+        return `${amount} poin`;
     }
 
     function liveRecv(data) {
