@@ -55,7 +55,7 @@ class Player(BasePlayer):
     amount_accepted = models.IntegerField()
     mewah_tariff = models.FloatField()
     biasa_tariff = models.FloatField()
-    goods_value = models.IntegerField()
+    goods_value = models.FloatField()
     pay = models.FloatField(initial=0)
     tariff = models.FloatField(initial=0)
     chance = models.IntegerField(initial=0)

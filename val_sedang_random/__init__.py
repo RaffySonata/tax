@@ -38,17 +38,20 @@ class C(BaseConstants):
 
 
 class Subsession(BaseSubsession):
-    def creating_session(subsession):
-        subsession.group_randomly()
 
+    def creating_session(self):
+        # This will shuffle everyone into new random groups each round
+        self.group_randomly()
 
 class Group(BaseGroup):
     deal_price = models.IntegerField()
     is_finished = models.BooleanField(initial=False)
     chance = models.IntegerField(initial=0)
     penalty = models.FloatField(initial=0)
+    potential_penalty = models.FloatField(initial=0)
     # New field to store the random quantity (so it remains consistent if page is refreshed)
     quantity = models.IntegerField(initial=0)
+    category = models.StringField()
 
 
 class Player(BasePlayer):
@@ -56,13 +59,13 @@ class Player(BasePlayer):
     amount_accepted = models.IntegerField()
     mewah_tariff = models.FloatField()
     biasa_tariff = models.FloatField()
-    goods_value = models.IntegerField()
+    goods_value = models.FloatField()
     pay = models.FloatField(initial=0)
     tariff = models.FloatField(initial=0)
     chance = models.IntegerField(initial=0)
     bribe = models.IntegerField(blank=True, label="Iuran kepada auditor")
     category = models.PositiveIntegerField(
-        choices=[[0, 'Barang Mewah'], [1, 'Barang Non-Mewah']],
+        choices=[[0, 'Barang Mewah'], [1, 'Barang Biasa']],
         widget=widgets.RadioSelectHorizontal,
         label="katagori barang"
     )
@@ -70,7 +73,7 @@ class Player(BasePlayer):
 
 
 class Bargain(Page):
-    timeout_seconds = 10000
+    timeout_seconds = 180
 
     @staticmethod
     def vars_for_template(player: Player):
@@ -151,6 +154,7 @@ class Bargain(Page):
     def before_next_page(player: Player, timeout_happened):
         """Use the new tariff scheme to compute player's payoff."""
         group = player.group
+        group.potential_penalty = 1.5 * player.mewah_tariff
         if timeout_happened:
             player.amount_accepted = 0
             player.amount_proposed = 0
@@ -191,6 +195,10 @@ class Results(Page):
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         group = player.group
+        if player.category == 0:
+            group.category = "Barang Mewah"
+        else:
+            group.category = "Barang Biasa"
         players = group.get_players()
         bribe = player.field_maybe_none('bribe')
         if bribe is None:
@@ -198,11 +206,14 @@ class Results(Page):
         if player.bribe == 0:
             player.chance = random.randint(1, 400)
         else:
+            if player.role == "Petugas Pajak":
+                player.pay = C.SALARY + group.deal_price - player.bribe
             if player.bribe > 180:
-                player.bribe = 180
+                bribe = 180
             rand = random.randint(1, 400)
-            player.chance = rand + player.bribe
-        group.chance = sum([p.chance for p in players])
+            player.chance = rand + bribe
+        group.chance = player.chance
+
 
 
 class ResultsWaitPage(WaitPage):
@@ -213,8 +224,13 @@ class Investigation(Page):
     @staticmethod
     def vars_for_template(player: Player):
         group = player.group
-        if group.chance < 200:
-            group.penalty = 1.5 * player.tariff
+        if group.category == "Barang Biasa":
+            if group.chance < 200:
+                group.penalty = 1.5 * player.tariff
+            else:
+                group.penalty = 0
+        else:
+            group.penalty = 0
         player.payment = player.pay - group.penalty
         if player.payment < 0:
             player.payment = 0
@@ -223,6 +239,8 @@ class MyWaitPage(WaitPage):
     wait_for_all_groups = True
 
 class Instructions(Page):
-    pass
+    @staticmethod
+    def is_displayed(player):
+        return player.round_number == 1
 
 page_sequence = [Instructions, Bargain, Results, ResultsWaitPage, Investigation, MyWaitPage]

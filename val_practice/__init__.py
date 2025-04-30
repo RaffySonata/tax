@@ -16,7 +16,7 @@ and is less resource-intensive since it all takes place in 1 page.
 
 
 class C(BaseConstants):
-    NAME_IN_URL = 'val_kecil'
+    NAME_IN_URL = 'val_practice'
     PLAYERS_PER_GROUP = 2
     NUM_ROUNDS = 20
 
@@ -28,8 +28,8 @@ class C(BaseConstants):
 
     # Parameters for quantity and product price
     FIXED_PRICE = 20
-    MEAN_QUANTITY = 32
-    SD_QUANTITY = 6.4
+    MEAN_QUANTITY = 200
+    SD_QUANTITY = 40
 
     # Specific tariff (ST) for Mewah vs. Biasa
     ST_MEWAH = 3
