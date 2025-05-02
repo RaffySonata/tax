@@ -2,36 +2,6 @@ from os import environ
 
 SESSION_CONFIGS = [
     dict(
-         name='compound_kecil',
-         app_sequence=['compound_kecil'],
-         num_demo_participants=2,
-     ),
-    dict(
-        name='compound_sedang',
-        app_sequence=['compound_sedang'],
-        num_demo_participants=2,
-    ),
-    dict(
-        name='compound_besar',
-        app_sequence=['compound_besar'],
-        num_demo_participants=2,
-    ),
-dict(
-         name='compound_kecil_random',
-         app_sequence=['compound_kecil_random'],
-         num_demo_participants=2,
-     ),
-    dict(
-        name='compound_sedang_random',
-        app_sequence=['compound_sedang_random'],
-        num_demo_participants=2,
-    ),
-    dict(
-        name='compound_besar_random',
-        app_sequence=['compound_besar_random'],
-        num_demo_participants=2,
-    ),
-    dict(
         name='val_kecil',
         app_sequence=['val_kecil'],
         num_demo_participants=4,
