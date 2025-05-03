@@ -21,7 +21,7 @@ class C(BaseConstants):
     NUM_ROUNDS = 20
 
     # Keep the roles, profits, salary, officer cost
-    SALARY = 500
+    SALARY = 3125
     OFFICER_COST = 10
     SELLER_ROLE = 'Importir'
     BUYER_ROLE = 'Petugas Pajak'
@@ -59,7 +59,7 @@ class Player(BasePlayer):
     amount_accepted = models.IntegerField()
     mewah_tariff = models.FloatField()
     biasa_tariff = models.FloatField()
-    goods_value = models.FloatField()
+    goods_value = models.FloatField(initial=0)
     pay = models.FloatField(initial=0)
     tariff = models.FloatField(initial=0)
     chance = models.IntegerField(initial=0)
@@ -243,4 +243,4 @@ class Instructions(Page):
     def is_displayed(player):
         return player.round_number == 1
 
-page_sequence = [Instructions, Bargain, Results, ResultsWaitPage, Investigation, MyWaitPage]
+page_sequence = [Instructions, ResultsWaitPage, Bargain, Results, ResultsWaitPage, Investigation, MyWaitPage]
