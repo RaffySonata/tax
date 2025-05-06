@@ -67,11 +67,11 @@ class Player(BasePlayer):
     pay = models.FloatField(initial=0)
     tariff = models.FloatField(initial=0)
     chance = models.IntegerField(initial=0)
-    bribe = models.IntegerField(blank=True, label="Iuran kepada auditor")
+    bribe = models.IntegerField(blank=True, label="Transfer kepada auditor")
     category = models.PositiveIntegerField(
         choices=[[0, 'Barang Mewah'], [1, 'Barang Biasa']],
         widget=widgets.RadioSelectHorizontal,
-        label="katagori barang"
+        label="Kategori barang"
     )
     payment = models.FloatField(initial=0)
 
