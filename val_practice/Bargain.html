@@ -1,5 +1,5 @@
 {{ block title }}
-<strong>SESI LATIHAN </strong> <br> Pelaporan Pajak
+Pelaporan Pajak (SESI LATIHAN)
 {{ endblock }}
 
 {{ block content }}
@@ -90,7 +90,7 @@
     <p>
         Importir memiliki potensi keuntungan dan dapat menawarkan transfer (iuran)
         agar barang dikategorikan sebagai Barang Biasa. Namun, keputusan akhir ada di tangan Anda.
-        Jika audit (50:50) menemukan ketidaksesuaian, denda 1.5x nilai tariff akan dikenakan.
+        Jika audit (50:50) menemukan ketidaksesuaian, denda 50% gaji akan dikenakan.
     </p>
 </div>
 {{ endif }}
@@ -128,7 +128,7 @@
 {{ chat nickname=player.role }}
 
 <div class="debug-section">
-    <strong>Penalti Saat Ini (group.penalty):</strong> {{ group.penalty }} poin
+    <strong>Penalti Saat Ini (player.penalty):</strong> {{ player.penalty }} poin
 </div>
 
 <!-- No changes to JavaScript below -->

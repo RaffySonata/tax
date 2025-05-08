@@ -18,18 +18,18 @@ and is less resource-intensive since it all takes place in 1 page.
 class C(BaseConstants):
     NAME_IN_URL = 'val_practice'
     PLAYERS_PER_GROUP = 2
-    NUM_ROUNDS = 20
+    NUM_ROUNDS = 1
 
     # Keep the roles, profits, salary, officer cost
-    SALARY = 500
+    SALARY = 1250
     OFFICER_COST = 10
     SELLER_ROLE = 'Importir'
     BUYER_ROLE = 'Petugas Pajak'
 
     # Parameters for quantity and product price
     FIXED_PRICE = 20
-    MEAN_QUANTITY = 200
-    SD_QUANTITY = 40
+    MEAN_QUANTITY = 80
+    SD_QUANTITY = 16
 
     # Specific tariff (ST) for Mewah vs. Biasa
     ST_MEWAH = 3
@@ -51,14 +51,43 @@ class Group(BaseGroup):
     deal_price = models.IntegerField()
     is_finished = models.BooleanField(initial=False)
     chance = models.IntegerField(initial=0)
-    penalty = models.FloatField(initial=0)
-    potential_penalty = models.FloatField(initial=0)
     # New field to store the random quantity (so it remains consistent if page is refreshed)
     quantity = models.IntegerField(initial=0)
     category = models.StringField()
 
 
 class Player(BasePlayer):
+    # Demographics Survey
+    usia = models.IntegerField(label="Usia Anda (Tahun):",
+                               min=18, max=60)
+    gender = models.StringField(widget=widgets.RadioSelect,
+                                label="Jenis kelamin:",
+                                choices=["Pria", "Wanita"])
+    edukasi = models.StringField(widget=widgets.RadioSelect,
+                                 label="Tingkat Pendidikan yang sedang atau telah Anda tempuh:",
+                                 choices=["Diploma 3 (D3)",
+                                          "Sarjana/Diploma 4 (S1/D4)",
+                                          "Magister (S2)",
+                                          "Doktoral (S3)",
+                                          ])
+    provinsi = models.IntegerField(label="Tempat asal Provinsi",
+                                   choices=[[1, 'ACEH'], [2, 'BALI'], [3, 'BANTEN'], [4, 'BENGKULU'],
+                                            [5, 'DI YOGYAKARTA'], [6, 'DKI JAKARTA'],
+                                            [7, 'GORONTALO'], [8, 'JAMBI'], [9, 'JAWA BARAT'], [10, 'JAWA TENGAH'],
+                                            [11, 'JAWA TIMUR'],
+                                            [12, 'KALIMANTAN BARAT'], [13, 'KALIMANTAN SELATAN'],
+                                            [14, 'KALIMANTAN TENGAH'],
+                                            [15, 'KALIMANTAN TIMUR'], [16, 'KALIMANTAN UTARA'],
+                                            [17, 'KEPULAUAN BANGKA BELITUNG'],
+                                            [18, 'KEPULAUAN RIAU'], [19, 'LAMPUNG'], [20, 'MALUKU'],
+                                            [21, 'MALUKU UTARA'], [22, 'NUSA TENGGARA BARAT'],
+                                            [23, 'NUSA TENGGARA TIMUR'], [24, 'PAPUA'], [25, 'PAPUA BARAT'],
+                                            [26, 'PAPUA BARAT DAYA'],
+                                            [27, 'PAPUA PEGUNUNGAN'], [28, 'PAPUA SELATAN'], [29, 'PAPUA TENGAH'],
+                                            [30, 'RIAU'], [31, 'SULAWESI BARAT'],
+                                            [32, 'SULAWESI SELATAN'], [33, 'SULAWESI TENGAH'],
+                                            [34, 'SULAWESI TENGGARA'], [35, 'SULAWESI UTARA'],
+                                            [36, 'SUMATERA BARAT'], [37, 'SUMATERA SELATAN'], [38, 'SUMATERA UTARA']])
     amount_proposed = models.IntegerField()
     amount_accepted = models.IntegerField()
     mewah_tariff = models.FloatField()
@@ -74,7 +103,8 @@ class Player(BasePlayer):
         label="katagori barang"
     )
     payment = models.FloatField(initial=0)
-
+    penalty = models.FloatField(initial=0)
+    potential_penalty = models.FloatField(initial=0)
 
 class Bargain(Page):
     timeout_seconds = 180
@@ -158,7 +188,10 @@ class Bargain(Page):
     def before_next_page(player: Player, timeout_happened):
         """Use the new tariff scheme to compute player's payoff."""
         group = player.group
-        group.potential_penalty = 1.5 * player.mewah_tariff
+        if player.role == "Importir":
+            player.potential_penalty = 1.5 * player.mewah_tariff
+        else:
+            player.potential_penalty = 0.5 * C.SALARY
         if timeout_happened:
             player.amount_accepted = 0
             player.amount_proposed = 0
@@ -229,22 +262,31 @@ class Investigation(Page):
     def vars_for_template(player: Player):
         group = player.group
         if group.category == "Barang Biasa":
+            player.tariff = player.biasa_tariff
             if group.chance < 200:
-                group.penalty = 1.5 * player.tariff
+                if player.role == "Importir":
+                    player.penalty = 1.5 * player.tariff
+                else:
+                    player.penalty = 0.5 * C.SALARY
             else:
-                group.penalty = 0
+                player.penalty = 0
         else:
-            group.penalty = 0
-        player.payment = player.pay - group.penalty
+            player.tariff = player.mewah_tariff
+            player.penalty = 0
+        player.payment = player.pay - player.penalty
         if player.payment < 0:
             player.payment = 0
 
 class MyWaitPage(WaitPage):
-    pass
+    wait_for_all_groups = True
 
 class Instructions(Page):
     @staticmethod
     def is_displayed(player):
         return player.round_number == 1
 
-page_sequence = [Instructions, ResultsWaitPage, Bargain, Results, ResultsWaitPage, Investigation, MyWaitPage]
+class demographic(Page):
+    form_model = 'player'
+    form_fields = ['provinsi', 'usia', 'gender', 'edukasi']
+
+page_sequence = [Instructions, demographic, ResultsWaitPage, Bargain, Results, ResultsWaitPage, Investigation, MyWaitPage]

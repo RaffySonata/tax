@@ -3,62 +3,62 @@ from os import environ
 SESSION_CONFIGS = [
     dict(
          name='compound_kecil',
-         app_sequence=['compound_kecil'],
+         app_sequence=['intro','survey','val_practice','compound_kecil'],
          num_demo_participants=2,
      ),
     dict(
         name='compound_sedang',
-        app_sequence=['compound_sedang'],
+        app_sequence=['intro','survey','val_practice','compound_sedang'],
         num_demo_participants=2,
     ),
     dict(
         name='compound_besar',
-        app_sequence=['compound_besar'],
+        app_sequence=['intro','survey','val_practice','compound_besar'],
         num_demo_participants=2,
     ),
 dict(
          name='compound_kecil_random',
-         app_sequence=['compound_kecil_random'],
+         app_sequence=['intro','survey','val_practice','compound_kecil_random'],
          num_demo_participants=2,
      ),
     dict(
         name='compound_sedang_random',
-        app_sequence=['compound_sedang_random'],
+        app_sequence=['intro','survey','val_practice','compound_sedang_random'],
         num_demo_participants=2,
     ),
     dict(
         name='compound_besar_random',
-        app_sequence=['compound_besar_random'],
+        app_sequence=['intro','survey','val_practice','compound_besar_random'],
         num_demo_participants=2,
     ),
     dict(
         name='val_kecil',
-        app_sequence=['val_kecil'],
+        app_sequence=['intro','val_practice','val_kecil'],
         num_demo_participants=4,
     ),
     dict(
         name='val_sedang',
-        app_sequence=['val_sedang'],
+        app_sequence=['intro','val_practice','val_sedang'],
         num_demo_participants=2,
     ),
     dict(
         name='val_besar',
-        app_sequence=['val_besar'],
+        app_sequence=['intro','val_practice','val_besar'],
         num_demo_participants=4,
     ),
     dict(
         name='val_kecil_random',
-        app_sequence=['val_kecil_random'],
+        app_sequence=['intro','val_practice','val_kecil_random'],
         num_demo_participants=2,
     ),
     dict(
         name='val_sedang_random',
-        app_sequence=['val_sedang_random'],
+        app_sequence=['intro','val_practice','val_sedang_random'],
         num_demo_participants=2,
     ),
     dict(
         name='val_besar_random',
-        app_sequence=['val_besar_random'],
+        app_sequence=['intro','val_practice','val_besar_random'],
         num_demo_participants=2,
     ),
     dict(

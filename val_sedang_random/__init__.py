@@ -47,8 +47,6 @@ class Group(BaseGroup):
     deal_price = models.IntegerField()
     is_finished = models.BooleanField(initial=False)
     chance = models.IntegerField(initial=0)
-    penalty = models.FloatField(initial=0)
-    potential_penalty = models.FloatField(initial=0)
     # New field to store the random quantity (so it remains consistent if page is refreshed)
     quantity = models.IntegerField(initial=0)
     category = models.StringField()
@@ -70,7 +68,8 @@ class Player(BasePlayer):
         label="katagori barang"
     )
     payment = models.FloatField(initial=0)
-
+    penalty = models.FloatField(initial=0)
+    potential_penalty = models.FloatField(initial=0)
 
 class Bargain(Page):
     timeout_seconds = 180
@@ -154,7 +153,10 @@ class Bargain(Page):
     def before_next_page(player: Player, timeout_happened):
         """Use the new tariff scheme to compute player's payoff."""
         group = player.group
-        group.potential_penalty = 1.5 * player.mewah_tariff
+        if player.role == "Importir":
+            player.potential_penalty = 1.5 * player.mewah_tariff
+        else:
+            player.potential_penalty = 0.5 * C.SALARY
         if timeout_happened:
             player.amount_accepted = 0
             player.amount_proposed = 0
@@ -225,13 +227,18 @@ class Investigation(Page):
     def vars_for_template(player: Player):
         group = player.group
         if group.category == "Barang Biasa":
+            player.tariff = player.biasa_tariff
             if group.chance < 200:
-                group.penalty = 1.5 * player.tariff
+                if player.role == "Importir":
+                    player.penalty = 1.5 * player.tariff
+                else:
+                    player.penalty = 0.5 * C.SALARY
             else:
-                group.penalty = 0
+                player.penalty = 0
         else:
-            group.penalty = 0
-        player.payment = player.pay - group.penalty
+            player.tariff = player.mewah_tariff
+            player.penalty = 0
+        player.payment = player.pay - player.penalty
         if player.payment < 0:
             player.payment = 0
 
