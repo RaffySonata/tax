@@ -73,7 +73,7 @@ Pelaporan Pajak
 <div class="section-box">
     <h2>Petugas Pajak</h2>
     <p>
-        Anda merupakan petugas pajak impor di sebuah bandara dengan gaji <strong>500 poin</strong>.
+        Anda merupakan petugas pajak impor di sebuah bandara dengan gaji <strong>3125 poin</strong>.
         Anda menentukan kategori barang (Mewah/Barang Biasa) dan menghitung tarif berikut:
     </p>
     <ul>
@@ -81,15 +81,14 @@ Pelaporan Pajak
         <li><em>Barang Biasa</em>: (jumlah barang × 2) + (jumlah barang * harga barang * 5%).</li>
     </ul>
     <p>
-        Saat ini, jumlah barang diimpor adalah <strong>{{ quantity }}</strong> unit,
-        Nilai barang adalah <strong>{{ player.goods_value }}</strong> poin,
-        sehingga tarif mewah = <strong>{{ mewah_tariff }}</strong> poin
-        dan tarif barang biasa = <strong>{{ biasa_tariff }}</strong> poin.
+        Saat ini, jumlah barang mewah yang diimpor adalah sebanyak <strong>{{ quantity }}</strong> unit dengan nilai sebesar <strong>{{ player.goods_value }}</strong> poin.
+        Apabila barang dikategorikan sebagai <em>Barang Mewah</em>, maka nilai tarif = <strong>{{ mewah_tariff }}</strong> poin.
+        Apabila barang dikategorikan sebagai <em>Barang Biasa</em>, maka nilai tarif = <strong>{{ biasa_tariff }}</strong> poin.
     </p>
     <p>
-        Importir memiliki potensi keuntungan dan dapat menawarkan transfer (iuran)
-        agar barang dikategorikan sebagai Barang Biasa. Namun, keputusan akhir ada di tangan Anda.
-        Jika audit (50:50) menemukan ketidaksesuaian, denda 50% gaji akan dikenakan.
+        Importir memiliki potensi keuntungan dan dapat menawarkan transfer kepada Anda agar barang dikategorikan sebagai Barang Biasa.
+        Namun, keputusan akhir ada di tangan Anda.
+        Jika terjadi audit (50:50) dan ditemukan ketidaksesuaian, maka denda sebesar 50% dari gaji akan dikenakan ke Anda.
     </p>
 </div>
 {{ endif }}
