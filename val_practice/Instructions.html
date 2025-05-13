@@ -27,15 +27,16 @@
       <p>
         Eksperimen ini bertujuan untuk memahami perilaku dan interaksi yang terjadi di dalam sebuah pelaporan dan pengecekan barang impor.
         Anda akan ditempatkan secara acak apakah menjadi seorang importir barang atau petugas yang melakukan cek atas barang impor sepanjang eksperimen ini.
-        Jumlah importir dan petugas akan sama di satu sesi eksperimen. Anda akan menghadapi 20 ronde dengan tipikal yang sama sesuai peran Anda masing-masing:
-        seorang importir atau petugas. Seluruh peserta akan berinteraksi satu sama lain di setiap ronde dengan lawan main yang acak dengan lama setiap ronde adalah 3 menit.
+        Jumlah importir dan petugas akan sama di satu sesi eksperimen. Anda akan menghadapi {{C.NUM_ROUNDS}} ronde dengan tipikal yang sama sesuai peran Anda masing-masing:
+        seorang importir atau petugas. Peserta akan berinteraksi satu sama lain dalam 3 menit per rondenya.
         Anda bisa berkomunikasi dengan lawan main di setiap ronde melalui kolom chat yang tersedia. Seluruh peserta akan menyelesaikan eksperimen ini secara bersamaan.
         Selain itu, Anda juga akan diminta untuk mengisi kuesioner singkat setelah Anda menyelesaikan eksperimen ini.
       </p>
 
       <p>
         Eksperimen ini telah mendapatkan persetujuan dari Komisi Etik Direktorat Penelitian UGM.
-        Lembar persetujuan terinformasi tersedia di halaman sebelumnya dan telah Anda setujui untuk mengikuti eksperimen ini.
+        Lembar persetujuan terinformasi telah dikirim bersamaan dengan email undangan dan telah Anda setujui. Anda dapat melihat kembali lembar tersebut di <a href="
+        https://drive.google.com/file/d/1eS9WdjCHcOSkZf494_D67Rge-8DPnUFr/view?usp=sharing" target="_blank">https://drive.google.com/file/d/1eS9WdjCHcOSkZf494_D67Rge-8DPnUFr/view?usp=sharing</a>
       </p>
 
       <p>
@@ -77,8 +78,8 @@
           Sebagai seorang importir, Anda melakukan impor barang mewah dengan nilai tertentu di mana barang impor tersebut akan dikenai tarif impor barang mewah.
           Besaran tarif impor barang mewah bergantung dari jumlah dan harga barang yang Anda impor.
           Di setiap ronde, Anda harus melaporkan nilai dari barang yang Anda impor kepada petugas untuk dihitung nilai tarif impornya yang akan menjadi tanggungan Anda.
-          Meski demikian, Anda mungkin akan mencoba untuk menegosiasikan besaran pajak impor kepada petugas yang sejatinya merupakan tindakan terlarang.
-          Untuk itu, terdapat auditor yang akan mengecek segala transaksi yang ada di eksperimen ini secara random.
+          Anda dapat berkomunikasi kepada petugas melalui kolom chat.
+          Akan terdapat auditor yang secara acak mengecek laporan pajak Anda.
           Berikut adalah penjelasan umum eksperimen untuk Anda sebagai importir barang:
         </p>
 
@@ -98,9 +99,8 @@
               Harga dan Kuantitas Barang Impor
             </td>
             <td style="border: 1px solid black; vertical-align: top;">
-              Kuantitas barang yang Anda impor ditentukan secara acak melalui distribusi normal dengan rentang sebagai berikut:
-              <em>untuk importir kecil, sedang, dan besar</em>, di mana <em>Q</em> adalah kuantitas barang mewah yang Anda impor.
-              Harga barang mewah yang Anda impor <em>P</em> akan selalu tetap sepanjang eksperimen, yaitu 20 poin.
+              Kuantitas barang yang Anda impor (<em>Q</em>) diambil secara acak dari distribusi normal dengan rata-rata {{C.MEAN_QUANTITY}}} dan deviasi standar {{C.SD_QUANTITY}}.
+              Harga barang mewah yang Anda impor (<em>P</em>) akan selalu tetap untuk seluruh ronde yaitu {{C.FIXED_PRICE}} poin.
             </td>
           </tr>
           <tr>
@@ -123,11 +123,10 @@
               Interaksi dengan Petugas Pajak
             </td>
             <td style="border: 1px solid black; vertical-align: top;">
-              Anda akan dihubungkan dengan satu petugas pajak yang sama/berbeda di sepanjang eksperimen ini yang tugasnya adalah memastikan pelaporan barang yang Anda impor.
+              Anda akan dihubungkan dengan <strong> satu petugas pajak yang /berbeda </strong> sepanjang eksperimen ini yang tugasnya adalah memastikan pelaporan barang yang Anda impor.
               Anda dan petugas pajak akan berada di halaman yang sama pada saat pelaporan barang impor Anda.
-              Petugas pajak yang akan membersamai Anda ditentukan secara acak dan anonim.
-              Anda bisa bernegosiasi kepada petugas pajak (melalui kolom chat yang tersedia) untuk menurunkan beban tarif dari barang yang Anda impor dengan cara mengubah status barang impor Anda dari barang mewah menjadi barang biasa.
-              Anda juga mungkin harus membayar kepada petugas pajak untuk mengubah status barang impor Anda.
+              Petugas pajak yang akan membersamai Anda ditentukan secara acak sebelum ronde pertama dimulai dan bersifat anonim.
+              Anda dapat berkomunikasi kepada petugas melalui kolom chat dan Anda dapat mengirimkan transfer kepada petugas pajak untuk mengubah kategori barang impor Anda.
             </td>
           </tr>
           <tr>
@@ -135,12 +134,11 @@
               Proses Audit atas Laporan Petugas Pajak
             </td>
             <td style="border: 1px solid black; vertical-align: top;">
-              Petugas pajak kemudian mengirimkan laporan pajak Anda ke otoritas pajak.
-              Auditor (dari bot) akan menyortir seluruh laporan pajak yang dikirimkan oleh petugas pajak untuk diaudit.
+              Petugas pajak mengirimkan laporan pajak Anda ke otoritas pajak.
+              Auditor (komputer) akan mengumpulkan seluruh laporan pajak yang dikirimkan oleh petugas pajak untuk diaudit.
               Laporan pajak Anda memiliki kemungkinan untuk menjadi sampel audit sebesar 50%.
-              Jika Anda terbukti melaporkan tidak sesuai aslinya dari hasil audit, maka Anda akan mendapatkan denda dari kecurangan tersebut.
-              Namun petugas bisa saja bernegosiasi dengan Auditor untuk menurunkan peluang laporan pajak Anda diaudit yang tidak sesuai dengan aslinya.
-              Negosiasi yang dilakukan oleh petugas pajak kepada Auditor tentu tidak terlepas dari proses negosiasi sebelumnya antara Anda dengan petugas pajak.
+              Jika hasil audit menunjukkan Anda tidak melaporkan sesuai dengan nilai impor sesungguhnya, maka Anda akan menerima denda.
+              Petugas dapat menurunkan peluang laporan pajak Anda diaudit dengan mengirimkan transfer ke Auditor.
             </td>
           </tr>
           <tr>
@@ -148,9 +146,9 @@
               Denda atas Laporan yang Tidak Sesuai
             </td>
             <td style="border: 1px solid black; vertical-align: top;">
-              Jika Anda mendapat denda dari audit laporan yang tidak sesuai, maka besaran denda adalah sebesar 150% dari nilai tarif yang seharusnya Anda bayarkan.
-              Denda ini di luar dari nilai tarif yang Anda bayarkan berdasarkan laporan yang Anda berikan.
-              Poin yang Anda berikan kepada petugas dari proses negosiasi akan hangus, tidak dikembalikan kepada Anda.
+              Jika hasil audit menunjukkan laporan yang tidak sesuai, maka denda yang Anda terima adalah sebesar 150% dari nilai tarif yang seharusnya Anda bayarkan.
+              Denda ini di luar nilai tarif yang telah Anda bayarkan berdasarkan laporan yang Anda berikan.
+              Transfer Anda kepada petugas dalam proses negosiasi akan hangus dan tidak dikembalikan kepada Anda.
             </td>
           </tr>
           <tr>
@@ -191,7 +189,7 @@
             <td style="border: 1px solid black; vertical-align: top;">
               Anda akan mendapatkan dua bentuk pembayaran dari eksperimen yang Anda telah selesaikan: uang kehadiran sebesar Rp25.000 dan payoff dari salah satu ronde eksperimen.
               Satu ronde dari seluruh ronde di masing-masing eksperimen akan diambil secara acak melalui distribusi seragam untuk menjadi basis pembayaran Anda.
-              Pembayaran yang Anda peroleh dari masing-masing eksperimen tersebut dikalikan dengan 100 untuk menjadi pembayaran final.
+              Pembayaran (poin) yang Anda peroleh dari masing-masing eksperimen tersebut dikalikan dengan Rp100 untuk menjadi pembayaran final.
             </td>
           </tr>
           <tr>
@@ -231,8 +229,9 @@
         <h4>Eksperimen</h4>
         <p>
           Sebagai seorang petugas, Anda diminta untuk melakukan pengecekan atas laporan impor barang mewah yang masuk oleh importir.
-          Ada kemungkinan Anda dinego oleh importir untuk merubah status barang impor dari barang mewah menjadi barang biasa dalam rangka menurunkan tarif impor yang dikenakan kepada importir.
-          Anda bebas untuk menentukan apakah menerima atau menolak negosiasi tersebut untuk meneruskan laporan barang impor yang masuk kepada Auditor.
+          Anda dapat berkomunikasi dengan importir untuk mengubah kategori barang impor dari barang mewah menjadi barang biasa, atau mempertahankan kategori barang mewah tersebut.
+          Setelah komunikasi selesai, Anda akan diminta menentukan kategori barang impor tersebut dan meneruskannya ke otoritas pajak.
+          Akan terdapat auditor yang secara acak mengecek laporan pajak importir dan laporan kategori Anda.
           Berikut adalah penjelasan umum eksperimen untuk Anda sebagai petugas pengecekan barang impor yang masuk:
         </p>
 
@@ -252,10 +251,8 @@
               Harga dan Kuantitas Barang Impor
             </td>
             <td style="border: 1px solid black; vertical-align: top;">
-              Kuantitas barang yang Anda impor ditentukan secara acak melalui distribusi normal dengan rentang sebagai berikut:
-              <em>untuk importir kecil, sedang, besar</em>,
-              di mana <em>Q</em> adalah kuantitas barang mewah yang Anda impor.
-              Harga barang mewah yang Anda impor <em>P</em> akan selalu tetap sepanjang eksperimen, yaitu 20 poin.
+              Kuantitas barang yang Anda impor (<em>Q</em>) diambil secara acak dari distribusi normal dengan rata-rata {{C.MEAN_QUANTITY}} dan deviasi standar {{C.SD_QUANTITY}}.
+              Harga barang mewah yang Anda impor (<em>P</em>) akan selalu tetap untuk seluruh ronde yaitu {{C.FIXED_PRICE}} poin.
             </td>
           </tr>
           <tr>
@@ -278,11 +275,10 @@
               Interaksi dengan Importir
             </td>
             <td style="border: 1px solid black; vertical-align: top;">
-              Anda akan terhubung dengan importir yang sama/berbeda di sepanjang eksperimen dan Anda serta importir akan berada pada halaman yang sama pada saat pelaporan barang impor.
-              Anda dan importir bisa saja bernegosiasi untuk pelaporan jenis barang yang diimpor, apakah barang mewah atau barang biasa.
-              Eksperimen ini menyediakan kolom chat untuk proses negosiasi ini.
-              Anda maupun importir dapat memulai komunikasi terlebih dulu untuk proses negosiasi.
-              Laporan yang ada pada halaman ini (pelaporan barang impor dan negosiasi) adalah yang akan Anda teruskan kepada Auditor pada tahap selanjutnya.
+              Anda akan dihubungkan dengan <strong> satu importir yang sama/berbeda </strong> sepanjang eksperimen ini dan Anda dan importir akan berada di halaman yang sama pada saat pelaporan barang impor Anda.
+Importir yang akan membersamai Anda ditentukan secara acak sebelum ronde pertama dimulai dan bersifat anonim.
+Anda dapat berkomunikasi kepada importir melalui kolom chat.
+Anda dapat menerima, menolak, atau mengusulkan nominal transfer dari importir untuk mengubah kategori barang impor.
             </td>
           </tr>
           <tr>
@@ -290,11 +286,9 @@
               Proses Audit atas Laporan
             </td>
             <td style="border: 1px solid black; vertical-align: top;">
-              Anda harus meneruskan laporan yang telah disetujui dari tahap sebelumnya, termasuk negosiasi dengan importir, kepada otoritas pajak.
-              Laporan yang Anda kumpulkan ke otoritas pajak kemudian akan diaudit secara acak dengan peluang 50% untuk menjadi sampel oleh Auditor (dari bot).
-              Namun Anda dapat melakukan negosiasi Auditor untuk menurunkan peluang laporan yang Anda kumpulkan menjadi sampel audit.
-              Mengingat auditor di eksperimen ini adalah bot, maka negosiasi dilakukan secara sepihak (dari Anda sebagai petugas pajak) dengan memberikan poin kepada Auditor.
-              Setiap 10 poin yang Anda berikan kepada Auditor menurunkan 1% kemungkinan Auditor untuk menjadikan laporan Anda sebagai sampel audit.
+              Anda menyampaikan laporan pajak kepada otoritas pajak.
+              Auditor (komputer) akan mengumpulkan seluruh laporan pajak yang dikirimkan oleh petugas pajak untuk diaudit. Laporan pajak Anda memiliki kemungkinan untuk menjadi sampel audit sebesar 50%. Jika hasil audit menunjukkan laporan tidak sesuai dengan nilai impor sesungguhnya, maka Anda akan menerima denda.
+              Anda dapat melakukan transfer kepada Auditor, dimana setiap 10 poin yang Anda transfer akan menurunkan 1% kemungkinan Auditor memilih laporan Anda sebagai sampel audit.
             </td>
           </tr>
           <tr>
@@ -312,20 +306,10 @@
               Payoff di Setiap Ronde
             </td>
             <td style="border: 1px solid black; vertical-align: top;">
-              Payoff yang Anda terima berbasis pada upah menjadi petugas (500 poin) dan tambahan dari hasil negosiasi dengan importir dan Auditor.
+              Payoff yang Anda terima berbasis pada upah menjadi petugas ({{C.SALARY}} poin) dan tambahan dari hasil negosiasi dengan importir dan Auditor.
               Berikut penghitungan payoff Anda di setiap ronde:
               <br><em>Upah petugas + poin transaksi (jika bekerja sama dalam pemalsuan laporan) – denda (jika terbukti melakukan pelanggaran)</em>.
               <br>Namun payoff Anda akan hangus jika Auditor menemukan pemalsuan laporan dan Anda terlibat di dalamnya.
-            </td>
-          </tr>
-          <tr>
-            <td style="border: 1px solid black; font-weight: bold; vertical-align: top;">
-              Catatan Penting
-            </td>
-            <td style="border: 1px solid black; vertical-align: top;">
-              Anda dan importir akan berada pada halaman yang sama di setiap ronde pada saat proses pelaporan.
-              Anda (tidak) akan diinformasikan lawan main (importir) di setiap ronde.
-              Informasi tersebut berupa kode partisipan masing-masing partisipan mengacu pada nomor meja.
             </td>
           </tr>
           <tr>
@@ -346,7 +330,7 @@
             <td style="border: 1px solid black; vertical-align: top;">
               Anda akan mendapatkan dua bentuk pembayaran dari eksperimen yang Anda telah selesaikan: uang kehadiran sebesar Rp25.000 dan payoff dari salah satu ronde eksperimen.
               Satu ronde dari seluruh ronde di masing-masing eksperimen akan diambil secara acak melalui distribusi seragam untuk menjadi basis pembayaran Anda.
-              Pembayaran yang Anda peroleh dari masing-masing eksperimen tersebut dikalikan dengan 100 untuk menjadi pembayaran final.
+              Pembayaran (poin) yang Anda peroleh dari masing-masing eksperimen tersebut dikalikan dengan Rp100 untuk menjadi pembayaran final.
             </td>
           </tr>
           <tr>
