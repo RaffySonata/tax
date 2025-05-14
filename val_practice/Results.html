@@ -1,5 +1,5 @@
 {{ block title }}
-    Pengambilan Keputusan (SESI LATIHAN)
+    Pengambilan Keputusan
 {{ endblock }}
 
 {{ block content }}
@@ -9,12 +9,12 @@
 </p>
 
 Nilai Barang = {{ player.goods_value }} poin<br>
-Tarif barang mewah = (jumlah barang × nilai barang × 20%) = {{ player.mewah_tariff }} poin<br>
-Tarif barang biasa = (jumlah barang × nilai barang × 15%) = {{ player.biasa_tariff }} poin<br>
+Tarif barang mewah = (jumlah barang × harga barang (20 poin) × 20%) = {{ player.mewah_tariff }} poin<br>
+Tarif barang biasa = (jumlah barang × harga barang (20 poin) × 15%) = {{ player.biasa_tariff }} poin<br>
 
 {{ if group.deal_price == 0 }}
 <p>
-    Tidak ada negosiasi, sehingga Anda tidak menerima iuran dari importir.
+    Tidak ada negosiasi, sehingga Anda tidak menerima transfer dari importir.
 </p>
 {{ next_button }}
 {{ endif }}
@@ -22,14 +22,14 @@ Tarif barang biasa = (jumlah barang × nilai barang × 15%) = {{ player.biasa_ta
 
 {{ if group.deal_price > 0 }}
 <p>
-    Anda menyepakati untuk menerima iuran sebesar <strong>{{ group.deal_price }} poin</strong>.
+    Anda menyepakati untuk menerima transfer sebesar <strong>{{ group.deal_price }} poin</strong>.
 </p>
 <p>
-    Kegiatan ini memiliki kemungkinan audit 50:50. Jika audit menemukan anomali,
-    penalti sebesar <strong>{{ player.potential_penalty }} poin</strong> akan dikenakan pada pendapatan importir dan petugas pajak.
+    Kegiatan ini memiliki kemungkinan audit 50:50. Jika audit menemukan ketidaksesuaian,
+    denda sebesar <strong>{{ group.potential_penalty }} poin</strong> akan dikenakan pada pendapatan importir dan petugas pajak.
 </p>
 <p>
-    Anda juga berkesempatan memberikan iuran (bribe) kepada auditor untuk mengurangi risiko audit.
+    Anda juga berkesempatan memberikan transfer kepada auditor untuk mengurangi risiko audit.
 </p>
 {{ formfield 'bribe' }}
 {{ next_button }}

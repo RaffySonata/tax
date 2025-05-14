@@ -4,7 +4,7 @@ SESSION_CONFIGS = [
     dict(
         name='val_kecil',
         app_sequence=['intro','val_practice','val_kecil'],
-        num_demo_participants=4,
+        num_demo_participants=2,
     ),
     dict(
         name='val_sedang',
@@ -14,7 +14,7 @@ SESSION_CONFIGS = [
     dict(
         name='val_besar',
         app_sequence=['intro','val_practice','val_besar'],
-        num_demo_participants=4,
+        num_demo_participants=2,
     ),
     dict(
         name='val_kecil_random',
