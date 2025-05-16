@@ -285,8 +285,6 @@ class payment(Page):
     @staticmethod
     def is_displayed(player):
         return player.round_number == C.NUM_ROUNDS
-    form_model = 'player'
-    form_fields = ['rekening', 'tipe_pembayaran', 'tipe_pembayaran_lain']
 
 
 page_sequence = [Instructions, ResultsWaitPage, Bargain, Results, ResultsWaitPage, Investigation, MyWaitPage, Results2,payment]
