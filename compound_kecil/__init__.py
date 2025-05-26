@@ -50,11 +50,12 @@ class Group(BaseGroup):
     deal_price = models.IntegerField()
     is_finished = models.BooleanField(initial=False)
     chance = models.IntegerField(initial=0)
-    chance2 = models.IntegerField(initial=0)
+    chance2 = models.FloatField(initial=0)
     # New field to store the random quantity (so it remains consistent if page is refreshed)
     quantity = models.IntegerField(initial=0)
     category = models.StringField()
     bribe_chance = models.FloatField(initial=0)
+    audit = models.BooleanField()
 
 
 class Player(BasePlayer):
@@ -244,15 +245,18 @@ class Investigation(Page):
             player.tariff = player.biasa_tariff
             group.chance2 = 50 - group.bribe_chance
             if group.chance < group.chance2:
+                group.audit = True
                 if player.role == "Importir":
                     player.penalty = 1.5 * player.tariff
                 else:
                     player.penalty = 0.5 * C.SALARY
             else:
+                group.audit = False
                 player.penalty = 0
         else:
             player.tariff = player.mewah_tariff
             player.penalty = 0
+            group.audit = False
         player.payment = player.pay - player.penalty
         if player.payment < 0:
             player.payment = 0

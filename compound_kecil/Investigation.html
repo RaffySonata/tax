@@ -5,7 +5,7 @@ Ronde {{player.round_number}}
 
 {{ block content }}
 
-{% if group.chance < 200 and group.category == "Barang Biasa" %}
+{% if group.audit == True and group.category == "Barang Biasa" %}
 <p>
     Hasil audit menemukan ketidaksesuaian pada pelaporan kategori.
     Denda sebesar <strong>{{ player.penalty }} poin</strong> diberlakukan, <br>
@@ -18,7 +18,7 @@ Ronde {{player.round_number}}
 </p>
 {% endif %}
 
-{% if group.chance >= 200 or group.category == "Barang Mewah" %}
+{% if group.audit == False or group.category == "Barang Mewah" %}
 <p>
     Tidak ditemukan ketidaksesuaian dalam laporan Anda.
     Total Tarif yang berlaku adalah = {{ player.tariff }} poin.<br>

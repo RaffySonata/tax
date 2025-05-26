@@ -10,8 +10,8 @@ Ronde {{player.round_number}}
 </p>
 
 Nilai Barang = {{ player.goods_value }} poin<br>
-Tarif barang mewah = (jumlah barang × harga barang (20 poin) × 20%) = {{ player.mewah_tariff }} poin<br>
-Tarif barang biasa = (jumlah barang × harga barang (20 poin) × 15%) = {{ player.biasa_tariff }} poin<br>
+Tarif barang mewah = (jumlah barang × 3) +(jumlah barang × harga barang (20 poin) × 20%) = {{ player.mewah_tariff }} poin<br>
+Tarif barang biasa = (jumlah barang × 2) +(jumlah barang × harga barang (20 poin) × 15%) = {{ player.biasa_tariff }} poin<br>
 
 {{ if group.deal_price == 0 }}
 <p>

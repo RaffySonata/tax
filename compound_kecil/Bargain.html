@@ -78,8 +78,8 @@ Ronde {{player.round_number}}
         Anda menentukan kategori barang (Mewah/Barang Biasa) dan menghitung tarif berikut:
     </p>
     <ul>
-        <li><em>Barang Mewah</em>: (jumlah barang × harga barang (20 poin) × 20%).</li>
-        <li><em>Barang Biasa</em>: (jumlah barang × harga barang (20 poin) × 15%).</li>
+        <li><em>Barang Mewah</em>: (jumlah barang × 3) + (jumlah barang × harga barang (20 poin) × 20%).</li>
+        <li><em>Barang Biasa</em>: (jumlah barang × 2) + (jumlah barang × harga barang (20 poin) × 15%).</li>
     </ul>
     <p>
         Saat ini, jumlah barang mewah yang diimpor adalah sebanyak <strong>{{ quantity }}</strong> unit dengan nilai sebesar <strong>{{ player.goods_value }}</strong> poin.
@@ -125,10 +125,6 @@ Ronde {{player.round_number}}
 
 <h4>Chat</h4>
 {{ chat nickname=player.role }}
-
-<div class="debug-section">
-    <strong>Penalti Saat Ini (player.penalty):</strong> {{ player.penalty }} poin
-</div>
 
 <!-- No changes to JavaScript below -->
 <script>
