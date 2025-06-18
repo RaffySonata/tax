@@ -28,8 +28,8 @@ class C(BaseConstants):
 
     # Parameters for quantity and product price
     FIXED_PRICE = 20
-    MEAN_QUANTITY = 80
-    SD_QUANTITY = 16
+    MEAN_QUANTITY = 32
+    SD_QUANTITY = 6.4
 
     # Specific tariff (ST) for Mewah vs. Biasa
     ST_MEWAH = 3
